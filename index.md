@@ -1,66 +1,43 @@
-<div style="font-family: 'Lucida Grande', 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Lucida Sans Unicode', Helvetica, Arial, sans-serif; font-size: 0.9em; overflow-x: hidden; overflow-y: auto; margin: 0px !important; padding: 5px 20px 26px !important; background-color: rgb(255, 255, 255);font-family: 'Hiragino Sans GB', 'Microsoft YaHei', STHeiti, SimSun, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif; padding: 20px;padding: 20px; color: rgb(34, 34, 34); font-size: 15px; font-family: 'Roboto Condensed', Tauri, 'Hiragino Sans GB', 'Microsoft YaHei', STHeiti, SimSun, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; background: rgb(255, 255, 255);"><h1 id="新闻app" style="clear: both;font-size: 2.2em; font-weight: bold; margin: 1.5em 0px 1em;margin-top: 0px;"><a name="新闻app" href="#新闻app" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>新闻APP</h1><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">  第一次写代码笔记，难免会出现不知道写什么东西。废话不说了，开始吧。<br style="clear: both;">参考自文档： <a href="http://www.jianshu.com/p/c2e79cf83c32" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);">http://www.jianshu.com/p/c2e79cf83c32</a><br style="clear: both;">数据来自<a href="http://www.tianapi.com/" title="天行数据" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);">天行数据</a>，只需要注册就行。 </p><h2 id="使用框架：" style="clear: both;font-size: 1.8em; font-weight: bold; margin: 1.275em 0px 0.85em;border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(230, 230, 230);"><a name="使用框架：" href="#使用框架：" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>使用框架：</h2><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">rxjava和retrofit以及一个开源扩展的RecyclerView和注解框架butterknife。<br style="clear: both;">在工程的build.gradle的dependencies中添加</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">在项目build.gradle中需要添加如下代码：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>apply plugin: 'com.neenbedankt.android-apt'
+<h1 id="自己写一个新闻app"><a name="自己写一个新闻app" href="#自己写一个新闻app"></a>自己写一个新闻APP</h1>
+<p>参考自文档： <a href="http://www.jianshu.com/p/c2e79cf83c32">http://www.jianshu.com/p/c2e79cf83c32</a><br>数据来自<a href="http://www.tianapi.com/" title="天行数据">天行数据</a>，只需要注册就行。 </p>
+<h2 id="使用框架："><a name="使用框架：" href="#使用框架："></a>使用框架：</h2>
+<p>rxjava和retrofit以及一个开源扩展的RecyclerView和注解框架butterknife。<br>在工程的build.gradle的dependencies中添加</p>
+<pre><code>classpath &#39;com.neenbedankt.gradle.plugins:android-apt:1.8&#39;
+</code></pre><p>在项目build.gradle中需要添加如下代码：</p>
+<pre><code>apply plugin: &#39;com.neenbedankt.android-apt&#39;
 ......
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
+    compile fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
+    androidTestCompile(&#39;com.android.support.test.espresso:espresso-core:2.2.2&#39;, {
+        exclude group: &#39;com.android.support&#39;, module: &#39;support-annotations&#39;
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    testCompile 'junit:junit:4.12'
+    compile &#39;com.android.support:appcompat-v7:24.2.1&#39;
+    compile &#39;com.android.support:design:24.2.1&#39;
+    testCompile &#39;junit:junit:4.12&#39;
     //    依赖注解
     //    依赖添加
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.google.code.gson:gson:2.7'
+    compile &#39;com.jakewharton:butterknife:8.4.0&#39;
+    apt &#39;com.jakewharton:butterknife-compiler:8.4.0&#39;
+    compile &#39;com.google.code.gson:gson:2.7&#39;
     //    开源的高级 recyclerview
-    compile 'com.jude:easyrecyclerview:4.2.3'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile &#39;com.jude:easyrecyclerview:4.2.3&#39;
+    compile &#39;com.android.support:recyclerview-v7:24.2.0&#39;
     //    rxjava
-    compile 'com.squareup.retrofit2:retrofit-converters:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile &#39;com.squareup.retrofit2:retrofit-converters:2.1.0&#39;
+    compile &#39;com.squareup.retrofit2:converter-gson:2.1.0&#39;
+    compile &#39;io.reactivex:rxandroid:1.2.1&#39;
+    compile &#39;com.squareup.retrofit2:adapter-rxjava:2.1.0&#39;
+    compile &#39;com.squareup.retrofit2:retrofit:2.1.0&#39;
+    compile &#39;com.squareup.retrofit2:converter-scalars:2.1.0&#39;
+    compile &#39;com.github.bumptech.glide:glide:3.7.0&#39;
 }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">apply plugin: 'com.neenbedankt.android-apt'
-......
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    testCompile 'junit:junit:4.12'
-    //    依赖注解
-    //    依赖添加
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.google.code.gson:gson:2.7'
-    //    开源的高级 recyclerview
-    compile 'com.jude:easyrecyclerview:4.2.3'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    //    rxjava
-    compile 'com.squareup.retrofit2:retrofit-converters:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-}
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">千万别忘了添加权限：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>&amp;lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&amp;gt;
-&amp;lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&amp;gt;
-&amp;lt;uses-permission android:name=&quot;android.permission.MOUNT_UNMOUNT_FILESYSTEMS&quot; /&amp;gt;
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-&lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /&gt;
-&lt;uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /&gt;
-</code></pre><h2 id="开始制作" style="clear: both;font-size: 1.8em; font-weight: bold; margin: 1.275em 0px 0.85em;border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(230, 230, 230);"><a name="开始制作" href="#开始制作" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>开始制作</h2><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">我采用了fragment加载界面的方法，所以新建一个fragment，通过动态添加的方式添加fragment,Activity添加Fagment的方法如下：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code> // 1、获取 FragmentManager
+</code></pre><p>千万别忘了添加权限：</p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+&lt;uses-permission android:name=&quot;android.permission.MOUNT_UNMOUNT_FILESYSTEMS&quot; /&gt;
+</code></pre><h2 id="开始制作"><a name="开始制作" href="#开始制作"></a>开始制作</h2>
+<p>我采用了fragment加载界面的方法，所以新建一个fragment，通过动态添加的方式添加fragment,Activity添加Fagment的方法如下：</p>
+<pre><code> // 1、获取 FragmentManager
  FragmentManager fragmentManager = getSupportFragmentManager();
  // 2、声明并获得 FragmentTransaction
  FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -70,21 +47,11 @@ dependencies {
  fragmentTransaction.replace(R.id.fragment_content,newsFragment);
  // 5、 最后提交FragmentTransaction
  fragmentTransaction.commit();
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;"> // 1、获取 FragmentManager
- FragmentManager fragmentManager = getSupportFragmentManager();
- // 2、声明并获得 FragmentTransaction
- FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
- // 3、 声明自定义的 Fragment
- NewsFragment newsFragment = new NewsFragment();
- // 4、 调用 FragmentTransaction 的replace方法，
- fragmentTransaction.replace(R.id.fragment_content,newsFragment);
- // 5、 最后提交FragmentTransaction
- fragmentTransaction.commit();
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">在NewsFragment中，复写onCreateView方法初始化页面，加载控件的小技巧：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>@BindView(R.id.recyclerview)
+</code></pre><p>在NewsFragment中，复写onCreateView方法初始化页面，加载控件的小技巧：</p>
+<pre><code>@BindView(R.id.recyclerview)
 EasyRecyclerView recyclerView;
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">@BindView(R.id.recyclerview)
-EasyRecyclerView recyclerView;
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">在该方法中，可以添加下拉刷新、加载更多事件以及点击详情事件。<br style="clear: both;">下拉刷新事件复写recyclerView的setRefreshListener即可为：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>recyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+</code></pre><p>在该方法中，可以添加下拉刷新、加载更多事件以及点击详情事件。<br>下拉刷新事件复写recyclerView的setRefreshListener即可为：</p>
+<pre><code>recyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 recyclerView.postDelayed(new Runnable() {
@@ -97,20 +64,8 @@ EasyRecyclerView recyclerView;
                 }, 1000);
             }
         });
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">recyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.clear();//清楚数据
-                        page = 0; //全局变量，加载的页数
-                        getData(); //加载数据的方法
-                    }
-                }, 1000);
-            }
-        });
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">加载更多需要复写adapter的setMore方法，具体代码如下：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>adapter.setMore()
+</code></pre><p>加载更多需要复写adapter的setMore方法，具体代码如下：</p>
+<pre><code>adapter.setMore()
 {
 @Override
             public void onMoreShow() {
@@ -120,21 +75,12 @@ EasyRecyclerView recyclerView;
             public void onMoreClick() {
             }
 }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">adapter.setMore()
-{
-@Override
-            public void onMoreShow() {
-                getData();//加载数据的方法
-            }
-            @Override
-            public void onMoreClick() {
-            }
-}
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">加载详情的方法，复写setOnItemClickListener即可</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>//点击事件
+</code></pre><p>加载详情的方法，复写setOnItemClickListener即可</p>
+<pre><code>//点击事件
 adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
     @Override
     public void onItemClick(int position) {  //position中携带item 的位置
-        ArrayList&amp;lt;String&amp;gt; data = new ArrayList&amp;lt;String&amp;gt;();
+        ArrayList&lt;String&gt; data = new ArrayList&lt;String&gt;();
         data.add(adapter.getAllData().get(position).getPicUrl());
         data.add(adapter.getAllData().get(position).getUrl());
         Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
@@ -145,29 +91,16 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
         startActivity(intent);
         }
 });
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">//点击事件
-adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-    @Override
-    public void onItemClick(int position) {  //position中携带item 的位置
-        ArrayList&lt;String&gt; data = new ArrayList&lt;String&gt;();
-        data.add(adapter.getAllData().get(position).getPicUrl());
-        data.add(adapter.getAllData().get(position).getUrl());
-        Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
-        //用Bundle携带数据
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("data", data);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        }
-});
-</code></pre><h5 id="下面就是最最重要的了，在onviewcreated中加载数据，" style="clear: both;font-size: 1.2em; font-weight: bold; margin: 0.855em 0px 0.57em;"><a name="下面就是最最重要的了，在onviewcreated中加载数据，" href="#下面就是最最重要的了，在onviewcreated中加载数据，" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>下面就是最最重要的了，在onViewCreated中加载数据，</h5><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">其实该方法很简单，调用getData()方法即可。<br style="clear: both;">最重要的代码，数据获取函数getData()方法：<br style="clear: both;">步骤如下：<br style="clear: both;">    1、使用retrofit 发起网络请求<br style="clear: both;">    2、数据通过rxjava提交先在io线程里，返回到主线程<br style="clear: both;">    3、中间设置map转换，把得到的Gson类转化为所需的News类（可以省略这一步）<br style="clear: both;">    4、subscribe的onNext里处理返回的最终数据。<br style="clear: both;">具体代码为：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>private void getData() {
+</code></pre><h5 id="下面就是最最重要的了，在onviewcreated中加载数据，"><a name="下面就是最最重要的了，在onviewcreated中加载数据，" href="#下面就是最最重要的了，在onviewcreated中加载数据，"></a>下面就是最最重要的了，在onViewCreated中加载数据，</h5>
+<p>其实该方法很简单，调用getData()方法即可。<br>最重要的代码，数据获取函数getData()方法：<br>步骤如下：<br>    1、使用retrofit 发起网络请求<br>    2、数据通过rxjava提交先在io线程里，返回到主线程<br>    3、中间设置map转换，把得到的Gson类转化为所需的News类（可以省略这一步）<br>    4、subscribe的onNext里处理返回的最终数据。<br>具体代码为：</p>
+<pre><code>private void getData() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(&quot;http://api.tianapi.com/&quot;)
                 //String
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 //添加 json 转换器
-                //    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+                //    compile &#39;com.squareup.retrofit2:adapter-rxjava:2.1.0&#39;
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 //添加 RxJava 适配器
                 .build();
@@ -175,57 +108,6 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
         ApiService apiManager = retrofit.create(ApiService.class);
         //这里采用的是Java的动态代理模式
         apiManager.getNewsData(&quot;0271191a3d0bcd8483debff0c759f20a&quot;, 10, page)
-                .subscribeOn(Schedulers.io())
-                .map(new Func1&amp;lt;NewsGson, List&amp;lt;News&amp;gt;&amp;gt;() {
-                    @Override
-                    public List&amp;lt;News&amp;gt; call(NewsGson newsgson) { //
-                        List&amp;lt;News&amp;gt; newsList = new ArrayList&amp;lt;News&amp;gt;();
-                        for (NewsGson.NewslistBean newslistBean : newsgson.getNewslist()) {
-                            News new1 = new News();
-                            new1.setTitle(newslistBean.getTitle());
-                            new1.setCtime(newslistBean.getCtime());
-                            new1.setDescription(newslistBean.getDescription());
-                            new1.setPicUrl(newslistBean.getPicUrl());
-                            new1.setUrl(newslistBean.getUrl());
-                            newsList.add(new1);
-                        }
-                        Log.d(&quot;news&quot;,newsList.toString());
-                        return newsList; // 返回类型
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber&amp;lt;List&amp;lt;News&amp;gt;&amp;gt;() {
-                    @Override
-                    public void onNext(List&amp;lt;News&amp;gt; newsList) {
-                        adapter.addAll(newsList);
-                    }
-                    @Override
-                    public void onCompleted() {
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getContext(),
-                                &quot;网络连接失败&quot;, Toast.LENGTH_LONG).show();
-                    }
-                });
-        page = page + 1;
-    }
-}
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">private void getData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.tianapi.com/")
-                //String
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                //添加 json 转换器
-                //    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                //添加 RxJava 适配器
-                .build();
-
-        ApiService apiManager = retrofit.create(ApiService.class);
-        //这里采用的是Java的动态代理模式
-        apiManager.getNewsData("0271191a3d0bcd8483debff0c759f20a", 10, page)
                 .subscribeOn(Schedulers.io())
                 .map(new Func1&lt;NewsGson, List&lt;News&gt;&gt;() {
                     @Override
@@ -240,7 +122,7 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
                             new1.setUrl(newslistBean.getUrl());
                             newsList.add(new1);
                         }
-                        Log.d("news",newsList.toString());
+                        Log.d(&quot;news&quot;,newsList.toString());
                         return newsList; // 返回类型
                     }
                 })
@@ -256,27 +138,22 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(getContext(),
-                                "网络连接失败", Toast.LENGTH_LONG).show();
+                                &quot;网络连接失败&quot;, Toast.LENGTH_LONG).show();
                     }
                 });
         page = page + 1;
     }
 }
-</code></pre><h5 id="自定义service，采用java的动态代理模式" style="clear: both;font-size: 1.2em; font-weight: bold; margin: 0.855em 0px 0.57em;"><a name="自定义service，采用java的动态代理模式" href="#自定义service，采用java的动态代理模式" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>自定义Service，采用Java的动态代理模式</h5><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>public interface ApiService {
+</code></pre><h5 id="自定义service，采用java的动态代理模式"><a name="自定义service，采用java的动态代理模式" href="#自定义service，采用java的动态代理模式"></a>自定义Service，采用Java的动态代理模式</h5>
+<pre><code>public interface ApiService {
 
     //返回的是Gson数据而且设置为&quot;被观察者&quot;
     @GET(&quot;social/&quot;)
-    Observable &amp;lt;NewsGson&amp;gt; getNewsData(@Query(&quot;key&quot;)String key,@Query(&quot;num&quot;) int num,@Query(&quot;page&quot;) int page);
+    Observable &lt;NewsGson&gt; getNewsData(@Query(&quot;key&quot;)String key,@Query(&quot;num&quot;) int num,@Query(&quot;page&quot;) int page);
 
 }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">public interface ApiService {
-
-    //返回的是Gson数据而且设置为"被观察者"
-    @GET("social/")
-    Observable &lt;NewsGson&gt; getNewsData(@Query("key")String key,@Query("num") int num,@Query("page") int page);
-
-}
-</code></pre><h5 id="通过adapter加载数据" style="clear: both;font-size: 1.2em; font-weight: bold; margin: 0.855em 0px 0.57em;"><a name="通过adapter加载数据" href="#通过adapter加载数据" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>通过adapter加载数据</h5><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>public class NewsAdapter extends RecyclerArrayAdapter&amp;lt;News&amp;gt; {
+</code></pre><h5 id="通过adapter加载数据"><a name="通过adapter加载数据" href="#通过adapter加载数据"></a>通过adapter加载数据</h5>
+<pre><code>public class NewsAdapter extends RecyclerArrayAdapter&lt;News&gt; {
 
     public NewsAdapter(Context context)
     {
@@ -288,19 +165,8 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
         return new NewsViewHolder(parent);//调用NewsViewHolder
     }
 }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">public class NewsAdapter extends RecyclerArrayAdapter&lt;News&gt; {
-
-    public NewsAdapter(Context context)
-    {
-        super(context);
-    }
-
-    @Override
-    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NewsViewHolder(parent);//调用NewsViewHolder
-    }
-}
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">通过NewsViewHolder显示数据</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>public class NewsViewHolder extends BaseViewHolder&amp;lt;News&amp;gt;{
+</code></pre><p>通过NewsViewHolder显示数据</p>
+<pre><code>public class NewsViewHolder extends BaseViewHolder&lt;News&gt;{
 
     private TextView mTv_name;
     private TextView mTv_sign;
@@ -327,34 +193,11 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
                 .into(mImg_face);
     }
 }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">public class NewsViewHolder extends BaseViewHolder&lt;News&gt;{
-
-    private TextView mTv_name;
-    private TextView mTv_sign;
-    private ImageView mImg_face;
-
-    public NewsViewHolder(ViewGroup parent) {
-        super(parent, R.layout.news_recycler_item);
-        //    加载控件
-        mImg_face = $(R.id.person_face);
-        mTv_name = $(R.id.person_name);
-        mTv_sign = $(R.id.person_sign);
-    }
-
-    @Override
-    public void setData(News data) {
-        super.setData(data);
-        //
-        mTv_name.setText(data.getTitle());
-        mTv_sign.setText(data.getDescription());
-        Glide.with(getContext())   //网络下载并加载图片
-                .load(data.getPicUrl())
-                .placeholder(R.mipmap.ic_launcher)
-                .centerCrop()
-                .into(mImg_face);
-    }
-}
-</code></pre><h6 id="到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。" style="clear: both;font-size: 1em; font-weight: bold; margin: 0.75em 0px 0.5em;color: rgb(119, 119, 119);"><a name="到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。" href="#到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。</h6><h3 id="加载图片" style="clear: both;font-size: 1.6em; font-weight: bold; margin: 1.125em 0px 0.75em;"><a name="加载图片" href="#加载图片" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>加载图片</h3><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">这里只需要定义一个fragment，当点击了菜单栏中的 每日美图 时动态的加载界面。</p><p style="margin: 1em 0px; word-wrap: break-word;">  该Fragment中，和新闻界面一样，在onCreateView中初始化控件，添加下拉刷新、加载更多、点击等事件，还有重要的addData()方法。下面直接看addData方法,其实和加载新闻的差不多，也是几个步骤。</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>private void addData() {
+</code></pre><h6 id="到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。"><a name="到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。" href="#到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。"></a>到这里，新闻加载就基本完成了，下面给出加载图片的方式，使图片能够不变形。</h6>
+<h3 id="加载图片"><a name="加载图片" href="#加载图片"></a>加载图片</h3>
+<p>这里只需要定义一个fragment，当点击了菜单栏中的 每日美图 时动态的加载界面。</p>
+<p>  该Fragment中，和新闻界面一样，在onCreateView中初始化控件，添加下拉刷新、加载更多、点击等事件，还有重要的addData()方法。下面直接看addData方法,其实和加载新闻的差不多，也是几个步骤。</p>
+<pre><code>private void addData() {
         Retrofit retrofit = new Retrofit.Builder() // 发起网络请求
                 .baseUrl(&quot;http://api.tianapi.com/&quot;)
                 .addConverterFactory(GsonConverterFactory.create()) 
@@ -366,58 +209,6 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
         // 采用Java动态代理模式
         ApiService apiManager = retrofit.create(ApiService.class);
         apiManager.getPictureData(&quot;8fdda4c5c6876bf06524cecaef410eda&quot;,10,page)
-                .subscribeOn(Schedulers.io()) //提交数据到io线程中
-                .map(new Func1&amp;lt;MeiNvGson, List&amp;lt;MeiNv&amp;gt;&amp;gt;() {
-                    @Override
-                    public List&amp;lt;MeiNv&amp;gt; call(MeiNvGson meiNvGson) {
-
-                        List&amp;lt;MeiNv&amp;gt; meiNvList = new ArrayList&amp;lt;MeiNv&amp;gt;();
-                        for (MeiNvGson.NewslistBean newslistBean: meiNvGson.getNewslist())
-                        {
-                            MeiNv m1 = new MeiNv();
-                            m1.setTitle(newslistBean.getTitle());
-                            m1.setCtime(newslistBean.getCtime());
-                            m1.setDescription(newslistBean.getDescription());
-                            m1.setPicUrl(newslistBean.getPicUrl());
-                            m1.setUrl(newslistBean.getUrl());
-                            meiNvList.add(m1);
-                        }
-                        return meiNvList;
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread()) // 返回主线程
-                .subscribe(new Subscriber&amp;lt;List&amp;lt;MeiNv&amp;gt;&amp;gt;() {
-
-                    @Override
-                    public void onNext(List&amp;lt;MeiNv&amp;gt; meiNvList) {
-
-                        adapter.addAll(meiNvList);
-                    }
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        Toast.makeText(getContext(),&quot;连接网络失败&quot;,Toast.LENGTH_LONG).show();
-                    }
-                });
-
-        page = page + 1;
-    }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">private void addData() {
-        Retrofit retrofit = new Retrofit.Builder() // 发起网络请求
-                .baseUrl("http://api.tianapi.com/")
-                .addConverterFactory(GsonConverterFactory.create()) 
-                // 添加Gson转换器
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                //  添加Rxjava适配器
-                .build();
-
-        // 采用Java动态代理模式
-        ApiService apiManager = retrofit.create(ApiService.class);
-        apiManager.getPictureData("8fdda4c5c6876bf06524cecaef410eda",10,page)
                 .subscribeOn(Schedulers.io()) //提交数据到io线程中
                 .map(new Func1&lt;MeiNvGson, List&lt;MeiNv&gt;&gt;() {
                     @Override
@@ -452,13 +243,14 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getContext(),"连接网络失败",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),&quot;连接网络失败&quot;,Toast.LENGTH_LONG).show();
                     }
                 });
 
         page = page + 1;
     }
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">适配器的代码为：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>public class ImageAdapter extends RecyclerArrayAdapter &amp;lt;MeiNv&amp;gt; {
+</code></pre><p>适配器的代码为：</p>
+<pre><code>public class ImageAdapter extends RecyclerArrayAdapter &lt;MeiNv&gt; {
 
     public ImageAdapter(Context context)
     {
@@ -470,53 +262,7 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
         return new ImageViewHolder(parent);
     }
 }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">public class ImageAdapter extends RecyclerArrayAdapter &lt;MeiNv&gt; {
-
-    public ImageAdapter(Context context)
-    {
-        super(context);
-    }
-
-    @Override
-    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ImageViewHolder(parent);
-    }
-}
-</code></pre><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>public class ImageViewHolder extends BaseViewHolder&amp;lt;MeiNv&amp;gt;{
-
-    ImageView imgPicture;
-    public ImageViewHolder(ViewGroup parent){
-        super(new ImageView(parent.getContext()));
-
-        imgPicture = (ImageView) itemView;
-        imgPicture.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        imgPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
-    }
-
-    @Override
-    public void setData(MeiNv data) {
-
-        final DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        Glide.with(getContext())
-                .load(data.getPicUrl())
-                .asBitmap()
-                .into(new SimpleTarget&amp;lt;Bitmap&amp;gt;(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                    @Override
-                    public void onResourceReady(Bitmap bitmap, GlideAnimation&amp;lt;? super Bitmap&amp;gt; glideAnimation) {
-                        int width = dm.widthPixels / 2 - 10;//宽度为屏幕宽度一半
-                        int heigh = bitmap.getHeight() * width / bitmap.getWidth(); //计算View的高度
-                        //获取bitmap信息，可赋值给外部变量操作，也可在此时行操作。
-                        ViewGroup.LayoutParams params = imgPicture.getLayoutParams();
-                        params.height = heigh;
-                        params.width = width;
-                        imgPicture.setLayoutParams(params);
-                        imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
-                        imgPicture.setImageBitmap(bitmap);
-                    }
-                });
-    }
-}
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">public class ImageViewHolder extends BaseViewHolder&lt;MeiNv&gt;{
+</code></pre><pre><code>public class ImageViewHolder extends BaseViewHolder&lt;MeiNv&gt;{
 
     ImageView imgPicture;
     public ImageViewHolder(ViewGroup parent){
@@ -550,7 +296,11 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
                 });
     }
 }
-</code></pre><p style="margin: 1em 0px; word-wrap: break-word;">到这里基本上就完成了，下面记录两个用到的小知识。</p><hr style="border: 0px none; height: 3px; padding: 0px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) 0px 0px repeat-x transparent;border: 1px solid rgb(204, 204, 204);border: 1px solid rgb(230, 230, 230);"><h5 id="1、保存图片" style="clear: both;font-size: 1.2em; font-weight: bold; margin: 0.855em 0px 0.57em;"><a name="1、保存图片" href="#1、保存图片" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>1、保存图片</h5><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">可以给ImageView添加长按监听事件（setOnLongClickListener），在里面调用保存图片函数，保存图片到本地的函数如下：</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>public static void saveImage(ImageView shot, Context context){
+</code></pre><p>到这里基本上就完成了，下面记录两个用到的小知识。</p>
+<hr class="page">
+<h5 id="1、保存图片"><a name="1、保存图片" href="#1、保存图片"></a>1、保存图片</h5>
+<p>可以给ImageView添加长按监听事件（setOnLongClickListener），在里面调用保存图片函数，保存图片到本地的函数如下：</p>
+<pre><code>public static void saveImage(ImageView shot, Context context){
 
         // 获取外部存储目录
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
@@ -580,37 +330,9 @@ adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             Toast.makeText(context,&quot;保存出错&quot;,Toast.LENGTH_LONG).show();
         }
     }
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">public static void saveImage(ImageView shot, Context context){
-
-        // 获取外部存储目录
-        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-        // 新建目录
-        File directory = new File(externalStorageDirectory, "NewsPicture");
-        if (! directory.exists())
-        {
-              // File.mkdirs()方法可以建好一个完整的路径
-            // File.mkdir()  只能在已经存在的目录中创建创建文件夹。 
-            directory.mkdir(); //创建文件
-        }
-        Bitmap drawingCache = shot.getDrawingCache();
-
-        File file = new File(directory, new Date().getTime() + ".jpg");
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            // 保存图片
-            drawingCache.compress(Bitmap.CompressFormat.JPEG,100,fos);
-            // 发送广播
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            Uri uri = Uri.fromFile(file);
-            intent.setData(uri);
-            context.sendBroadcast(intent);
-            Toast.makeText(context,"保存成功",Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(context,"保存出错",Toast.LENGTH_LONG).show();
-        }
-    }
-</code></pre><h5 id="2、按照图片比例设置图片大小" style="clear: both;font-size: 1.2em; font-weight: bold; margin: 0.855em 0px 0.57em;"><a name="2、按照图片比例设置图片大小" href="#2、按照图片比例设置图片大小" style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>2、按照图片比例设置图片大小</h5><p style="margin-top: 0px;margin: 1em 0px; word-wrap: break-word;">在加载图片过程中，相信大家都遇到这样的问题：由于没有按照图片的比例加载图片，加载后会出现图片失真的现象。下面就教大家如何加载的图片不会失真，还是在代码中看吧。</p><pre style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); overflow: auto; padding: 0.5em;"><code data-origin="<pre><code>// 获取屏幕大小
+</code></pre><h5 id="2、按照图片比例设置图片大小"><a name="2、按照图片比例设置图片大小" href="#2、按照图片比例设置图片大小"></a>2、按照图片比例设置图片大小</h5>
+<p>在加载图片过程中，相信大家都遇到这样的问题：由于没有按照图片的比例加载图片，加载后会出现图片失真的现象。下面就教大家如何加载的图片不会失真，还是在代码中看吧。</p>
+<pre><code>// 获取屏幕大小
 final DisplayMetrics dm = getResources().getDisplayMetrics();
 // 设置宽度为屏幕宽度
 int width = dm.widthPixels;
@@ -624,18 +346,4 @@ imgPicture.setLayoutParams(params);
 // 设置图片填充满 ImageView
 imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
 imgPicture.setImageBitmap(resource);
-</code></pre>" style="border: 0px; display: block;font-family: Consolas, Inconsolata, Courier, monospace; font-weight: bold; white-space: pre; margin: 0px;border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; word-wrap: break-word; border: 1px solid rgb(204, 204, 204); padding: 0px 5px; margin: 0px 2px;font-size: 1em; letter-spacing: -1px; font-weight: bold;">// 获取屏幕大小
-final DisplayMetrics dm = getResources().getDisplayMetrics();
-// 设置宽度为屏幕宽度
-int width = dm.widthPixels;
-// 设置高度为 图片高度 * 屏幕宽度 / 图片宽度
-int height = bitmap.getHeight()*width/bitmap.getWidth();
-// 获取ImageView尺寸
-ViewGroup.LayoutParams params = imgPicture.getLayoutParams();
-params.width = width;
-params.height = height;
-imgPicture.setLayoutParams(params);
-// 设置图片填充满 ImageView
-imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
-imgPicture.setImageBitmap(resource);
-</code></pre></div>
+</code></pre>
